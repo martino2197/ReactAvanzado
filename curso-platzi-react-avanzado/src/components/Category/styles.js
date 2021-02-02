@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+// import { skeletonLoading } from '../../styles/animation'
 
 export const Anchor = styled.a`
   display: flex;

@@ -1,23 +1,41 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Category } from '../Category'
+import { CategoryLoading } from '../CategoryLoading'
 
 import { List, Item } from './styles'
 // import { categories as mockCategories } from '../../../api/db.json'
 
-export const ListOfCategories = () => {
+// CUSTOM HOOK
+function useCategoriesData () {
   // setear el estado inicial
   const [categories, setCategories] = useState([])
-  const [showFixed, setShowFixed] = useState(false)
-  // useEffect acepta una funcion que sera la que se ejecute cada vez que se renderice el componente
+
+  // podemos tener mas estados en un custom hook
+  const [loading, setLoading] = useState(false)
+
   useEffect(function () {
+    setLoading(true)
     window.fetch('https://petgram-server-martino2197.vercel.app/categories')
       .then(res => res.json())
       .then(response => {
         // setCategories es el metodo para actualizar categories
         setCategories(response)
+        setLoading(false)
       })
       // la dependencia hace que se ejecute el efecto cada vez que cambie
   }, [])
+
+  return { categories, loading }
+}
+
+export const ListOfCategories = () => {
+  // custom Hook
+  const { categories, loading } = useCategoriesData()
+
+  // setear el estado inicial
+  const [showFixed, setShowFixed] = useState(false)
+  // useEffect acepta una funcion que sera la que se ejecute cada vez que se renderice el componente
+
   // useEddect para mostrar las categorias cuando el scroll baje
   useEffect(function (params) {
     // funcion onScroll para verificar el movimiento del scroll
@@ -35,13 +53,17 @@ export const ListOfCategories = () => {
   }, [showFixed])
 
   const renderList = (fixed) => (
-    <List className={fixed ? 'fixed' : ''}>
+    // <List className={fixed ? 'fixed' : ''}>
+    <List fixed={fixed}>
       {
-      categories.map(category => <Item key={category.id}><Category {... category} /></Item>)
+        loading ? [1, 2, 3, 4].map((x) => <Item key={x}><CategoryLoading light='true' /></Item>) : categories.map(category => <Item key={category.id}><Category {... category} /></Item>)
     }
     </List>
   )
 
+  // if (loading) {
+  //   return 'Cargando...'
+  // }
   return (
     <>
       {renderList()}
