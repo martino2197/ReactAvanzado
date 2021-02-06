@@ -1,10 +1,12 @@
 import React from 'react'
 import { PhotoCard } from '../components/PhotoCard'
+import { PhotoLoader } from '../components/PhotoLoader'
 
 // deprecado
 // import { gql } from 'apollo-boost'
 // import { Query } from 'react-apollo' // Query es un render especial que nos permitira utilizar Render Props
 import { gql, useQuery } from '@apollo/client'
+// import { from } from 'apollo-boost'
 
 const GET_PHOTO = gql`
 query getSinglePhoto($id:ID!) {
@@ -20,7 +22,7 @@ query getSinglePhoto($id:ID!) {
 `
 const getPhoto = (id) => {
   const { loading, error, data } = useQuery(GET_PHOTO, { variables: { id } })
-  if (loading) return <p>Loading....</p>
+  if (loading) return <PhotoLoader />
   if (error) return <p>Error :(</p>
   return <PhotoCard id={id} {...data.photo} />
 }
