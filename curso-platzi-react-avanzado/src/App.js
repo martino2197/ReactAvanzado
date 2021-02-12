@@ -1,13 +1,15 @@
 import React from 'react'
-// import { Category } from './components/Category'
-import { ListOfCategories } from './components/ListOfCategories'
+
 import { GlobalStyle } from './styles/GlobalStyles'
-// import { PhotoCard } from './components/PhotoCard'
-import { ListOfPhotoCards } from './components/ListOfPhotoCards'
 // import { ListOfPhotoCards } from './container/ListOfPhotoCards'
 import { Logo } from './components/Logo'
 
 import { PhotoCardWithQuery } from './container/PhotoCardWithQuery'
+
+import { Home } from './pages/Home'
+
+// Reach Router
+import { Router } from '@reach/router'
 
 export const App = () => {
   // recibe un parametro la query string de la barra de direcciones (window.location.search)
@@ -24,7 +26,10 @@ export const App = () => {
       {
         detailId
           ? <PhotoCardWithQuery id={detailId} />
-          : <><ListOfCategories /><ListOfPhotoCards categoryId={1} /></>
+          : <Router>
+            <Home path='/' />
+            <Home path='/pet/:id' />
+            </Router>
       }
     </>
   )
