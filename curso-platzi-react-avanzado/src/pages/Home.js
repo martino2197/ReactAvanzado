@@ -3,8 +3,8 @@ import React from 'react'
 import { ListOfCategories } from '../components/ListOfCategories'
 // import { PhotoCard } from './components/PhotoCard'
 import { ListOfPhotoCards } from '../components/ListOfPhotoCards'
-export const Home = ({ id }) => {
+export const Home = ({ categoryId }) => {
   return (
-    <><ListOfCategories /><ListOfPhotoCards categoryId={id} /></>
+    <><ListOfCategories /><ListOfPhotoCards categoryId={categoryId} /></>
   )
 }

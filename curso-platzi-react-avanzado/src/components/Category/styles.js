@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 // import { skeletonLoading } from '../../styles/animation'
+import { Link as LinkRouter } from '@reach/router'
 
-export const Anchor = styled.a`
+// styled() puede recibir como parametro que acepte cualquier componente con la prop classname
+export const Link = styled(LinkRouter)`
   display: flex;
   flex-direction: column;
   text-align: center;
