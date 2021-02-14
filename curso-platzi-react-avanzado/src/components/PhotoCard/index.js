@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from '@reach/router'
 import { Article, ImgWrapper, Img } from './styles'
 
 // Custom Hooks
@@ -37,11 +38,11 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
       {
         show &&
           <>
-            <a href={`/?detail=${id}`}>
+            <Link to={`/detail/${id}`}>
               <ImgWrapper>
                 <Img src={src} />
               </ImgWrapper>
-            </a>
+            </Link>
             <FavButton
               liked={liked} likes={likes}
               onClick={handleFavClick}
