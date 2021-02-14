@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Link as LinkRouter } from '@reach/router'
+import { fadeIn } from '../../styles/animation'
 
 export const Nav = styled.nav`
   align-items: center;
@@ -26,4 +27,20 @@ export const Link = styled(LinkRouter)`
   justify-content: center;
   text-decoration: none;
   width: 100%;
+
+/* Reach Router nos agrega un atributo aria-current="page" en la página que esté activa
+en ese momento para que podamos estilarla, agregarle algún tipo de funcionamiento o
+decirle al usuario en donde se encuentra. */
+  &[aria-current] {
+    color: #000;
+
+    &:after {
+      ${fadeIn({ time: '0.5s' })};
+      content: '·';
+      position: absolute;
+      bottom: 0;
+      font-size: 34px;
+      line-height: 20px;
+    }
+  }
 `
