@@ -7,10 +7,17 @@ import { NavBar } from './components/NavBar'
 
 import { Home } from './pages/Home'
 import { Detail } from './pages/Detail'
+import { Favs } from './pages/Favs'
+import { User } from './pages/User'
+import { NotRegisteredUser } from './pages/NotRegisteredUser'
 
 // Reach Router
 import { Router } from '@reach/router'
 
+// UserLogged es un componente con render props
+const UserLogged = ({ children }) => {
+  return children({ isAuth: false })
+}
 export const App = () => {
   // // recibe un parametro la query string de la barra de direcciones (window.location.search)
   // const urlParams = new window.URLSearchParams(window.location.search)
@@ -28,6 +35,20 @@ export const App = () => {
         <Home path='/pet/:categoryId' />
         <Detail path='/detail/:detailId' />
       </Router>
+      <UserLogged>
+        {
+          ({ isAuth }) =>
+            isAuth
+              ? <Router>
+                <Favs path='/favs' />
+                <User path='/user' />
+              </Router>
+              : <Router>
+                <NotRegisteredUser path='/favs' />
+                <NotRegisteredUser path='/user' />
+              </Router>
+        }
+      </UserLogged>
       <NavBar />
     </>
   )
