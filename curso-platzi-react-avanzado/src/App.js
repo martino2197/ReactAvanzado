@@ -13,11 +13,13 @@ import { NotRegisteredUser } from './pages/NotRegisteredUser'
 
 // Reach Router
 import { Router } from '@reach/router'
+// Importamos el contexto
+import Context from './Context'
 
 // UserLogged es un componente con render props
-const UserLogged = ({ children }) => {
-  return children({ isAuth: false })
-}
+// const UserLogged = ({ children }) => {
+//   return children({ isAuth: false })
+// }
 export const App = () => {
   // // recibe un parametro la query string de la barra de direcciones (window.location.search)
   // const urlParams = new window.URLSearchParams(window.location.search)
@@ -35,20 +37,22 @@ export const App = () => {
         <Home path='/pet/:categoryId' />
         <Detail path='/detail/:detailId' />
       </Router>
-      <UserLogged>
+      {/* Context.Consumer tiene la misma render prop que indicamos
+      en Context.Provider en el Index.js */}
+      <Context.Consumer>
         {
           ({ isAuth }) =>
             isAuth
               ? <Router>
                 <Favs path='/favs' />
                 <User path='/user' />
-              </Router>
+                </Router>
               : <Router>
                 <NotRegisteredUser path='/favs' />
                 <NotRegisteredUser path='/user' />
-              </Router>
+                </Router>
         }
-      </UserLogged>
+      </Context.Consumer>
       <NavBar />
     </>
   )
