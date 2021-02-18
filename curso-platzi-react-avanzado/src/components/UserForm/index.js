@@ -17,10 +17,19 @@ export const UserForm = ({ onSubmit, title }) => {
   const email = useInputValue('')
   const password = useInputValue('')
 
+  const handleSubmit = (event) => {
+    // evitamos que haga el POST por defecto con la sig linea
+    event.preventDefault()
+    onSubmit({
+      email: email.value,
+      password: password.value
+    })
+  }
+
   return (
     <>
       <Title>{title}</Title>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={handleSubmit}>
         {/* <input placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} /> */}
         {/* <input placeholder='Email' value={email.value} onChange={email.onChange} /> */}
         <Input placeholder='Email' {...email} />
